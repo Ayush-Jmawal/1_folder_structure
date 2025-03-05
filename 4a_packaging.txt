@@ -1,0 +1,51 @@
+from textblob import TextBlob
+import json
+from setuptools import setup, find_packages
+
+# Emotion Predictor Function
+def emotion_predictor(text):
+    """
+    Predicts the emotion of the given text and returns a formatted JSON response.
+    """
+    polarity = TextBlob(text).sentiment.polarity
+
+    if polarity > 0:
+        emotion = "happy"
+    elif polarity < 0:
+        emotion = "sad"
+    else:
+        emotion = "neutral"
+
+    response = {
+        "status": "success",
+        "data": {
+            "input_text": text,
+            "predicted_emotion": emotion,
+            "polarity_score": round(polarity, 4)
+        }
+    }
+    return json.dumps(response, indent=4)
+
+# Test the Function
+if __name__ == "__main__":
+    test_text = "I absolutely love this!"
+    print(emotion_predictor(test_text))
+
+# Package Setup
+setup(
+    name="emotion_analyzer",
+    version="0.1",
+    py_modules=["4a_packaging"],
+    install_requires=["textblob"],
+    author="Your Name",
+    author_email="your.email@example.com",
+    description="A simple emotion prediction package",
+    long_description="This package analyzes text and predicts emotions (happy, sad, neutral).",
+    url="https://github.com/yourusername/emotion_analyzer",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+    ],
+    python_requires='>=3.6',
+)
