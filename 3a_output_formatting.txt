@@ -1,0 +1,30 @@
+from textblob import TextBlob
+import json
+
+def emotion_predictor(text):
+    """
+    Predicts the emotion of the given text and returns a JSON response.
+    """
+    # Analyze sentiment polarity
+    polarity = TextBlob(text).sentiment.polarity
+
+    # Determine emotion based on polarity
+    if polarity > 0:
+        emotion = "happy"
+    elif polarity < 0:
+        emotion = "sad"
+    else:
+        emotion = "neutral"
+
+    # Return structured output
+    response = {
+        "input_text": text,
+        "predicted_emotion": emotion,
+        "polarity_score": polarity
+    }
+    
+    return json.dumps(response, indent=4)
+
+# Example Usage
+text = "I love coding! It's so exciting."
+print(emotion_predictor(text))
