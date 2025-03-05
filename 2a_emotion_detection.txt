@@ -1,0 +1,23 @@
+from flask import Flask, request, jsonify, render_template
+
+app = Flask(__name__)
+
+# Home Route
+@app.route('/')
+def home():
+    return "Welcome to our Web App!"
+
+# Form Submission Route
+@app.route('/submit', methods=['POST'])
+def submit():
+    data = request.form.get('data', '')
+    return f"You submitted: {data}"
+
+# API Route (Returns JSON data)
+@app.route('/api/data', methods=['GET'])
+def api_data():
+    return jsonify({"message": "Hello, this is your API response!"})
+
+# Run the application
+if __name__ == '__main__':
+    app.run(debug=True)
