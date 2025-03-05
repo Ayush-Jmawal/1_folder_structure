@@ -1,0 +1,23 @@
+import unittest
+import json
+from 4a_packaging import emotion_predictor  # Import the function from the packaged module
+
+class TestEmotionPredictor(unittest.TestCase):
+    def test_happy_emotion(self):
+        response = json.loads(emotion_predictor("I love programming!"))
+        self.assertEqual(response["data"]["predicted_emotion"], "happy")
+
+    def test_sad_emotion(self):
+        response = json.loads(emotion_predictor("I feel terrible today."))
+        self.assertEqual(response["data"]["predicted_emotion"], "sad")
+
+    def test_neutral_emotion(self):
+        response = json.loads(emotion_predictor("It's just an ordinary day."))
+        self.assertEqual(response["data"]["predicted_emotion"], "neutral")
+
+    def test_polarity_score(self):
+        response = json.loads(emotion_predictor("I absolutely love this!"))
+        self.assertIsInstance(response["data"]["polarity_score"], float)
+
+if __name__ == "__main__":
+    unittest.main()
