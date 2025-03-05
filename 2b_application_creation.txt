@@ -1,0 +1,23 @@
+from flask import Flask, request, jsonify, render_template
+
+app = Flask(__name__)
+
+# Home Route
+@app.route('/')
+def home():
+    return "Welcome to 2B Application Creation!"
+
+# Form Submission Route
+@app.route('/submit', methods=['POST'])
+def submit():
+    user_input = request.form.get('data', '')
+    return f"You submitted: {user_input}"
+
+# API Route (Returns JSON data)
+@app.route('/api/data', methods=['GET'])
+def api_data():
+    return jsonify({"message": "This is 2B Application Creation API!"})
+
+# Run the application
+if __name__ == '__main__':
+    app.run(debug=True)
