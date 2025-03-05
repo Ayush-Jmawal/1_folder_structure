@@ -1,0 +1,18 @@
+import json
+from 4a_packaging import emotion_predictor  # Import from the packaged module
+
+# Define test cases
+test_cases = [
+    ("I am very happy today!", "happy"),
+    ("This is the worst day ever.", "sad"),
+    ("It is an average day.", "neutral"),
+]
+
+# Run tests
+for text, expected_emotion in test_cases:
+    response = json.loads(emotion_predictor(text))
+    predicted_emotion = response["data"]["predicted_emotion"]
+    
+    print(f"Input: {text}")
+    print(f"Expected: {expected_emotion} | Predicted: {predicted_emotion}")
+    print("Test Passed ✅" if predicted_emotion == expected_emotion else "Test Failed ❌", "\n")
